@@ -1,0 +1,1951 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{VacantBuildings}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Title: Deserted neighborhood: Reason for
+crime?}\label{title-deserted-neighborhood-reason-for-crime}
+
+Team: Bhanu Phanindra, Phani Teja Kesha
+
+    Overview:We are working on vacant buildings data set. We planning to
+derive relation if possible with factors like crime, service requests
+and tax affecting vacancy of buildings in area. This dataset contains
+building addresses, police district and NoticeDate of buildings that are
+vacant. It does not contain any info regarding non-vacant buildings.
+
+    Datasets used are vacant builings, Real\_PropertyTaxes,
+311\_Customer\_Service\_Requests and
+BPD\_Part\_1\_Victim\_Based\_Crime\_Data.
+
+    The following are the technical details given in openbaltimore about
+service requests dataset. Number of rows and columns are 3.25M and 22
+respectively where each row is a service request. Despite being huge
+dataset it has large number of downloads. A table preview containging
+all columns is given in the same page which gives info about what we can
+expect from this dataset even before we download. Other than these
+technical details about dataset nothing else is mentioned about services
+or what this dataset is actually.
+
+    Dataset looks almost clean with some missing values in few columns.
+Looks like particular standard is followed for data entry. So there is
+not much ambiguity in notation. Although format of StatusDate, DueDate
+and CloseDate is same, CreatedDate is slightly different. I also spotted
+one duplicate row in 50 rows, which is mentioned as duplicate in service
+request itself. I think it only possible to get duplicate entries only
+when service request method is API. This can be investigated further
+when processing the data. Also may be not all duplicate requests are
+identified, there is possibility that different service request methods
+have been tried for exact same service.
+
+    One of the redundent information is GeoLocation, since Latitude and
+Longitude have their own colums. GeoLocation column can be dropped with
+out any worries. Before looking at output of tail(50) I assumed
+SRRecordID to be integer. But it looks like some random text is present
+at end of digits. Not sure whether it is intended or faulty recordID.
+Since it is just an Id it does not matter much.
+
+    Some technical details about vacant builings dataset given in open
+baltimore are Number of rows and columns are 16.7k and 9 respectively
+where each row is contains information about vacant building. It has
+5.4K downloads and updated twice a month. There are not many null values
+in the dataset only one row in which there is not building address, so
+lets go ahead and delete the row which has a null value. To make the
+dataset clean.
+
+    Some technical details about property tax dataset given in open
+baltimore are Number of rows and columns are 239k and 16 respectively
+where each row is contains tax information for each builing.
+
+ 1)There are some NULL values in the column AmountDue. 2) Null values in
+columns CityTax and StateTax but the NULL values are not seen as
+frequently as seen in the AmountDue. 3) There are only two values in the
+column ResCode that is either it is a princial residence or not a
+principal residence. 4) The CouncilDistrict column looks like a code for
+the area but it is given in float value even though all values seems to
+be integer 5) There are some null values in columns Neighbourhood,
+PoliceDistrict, CouncilDistrict, Location. There is a row in which all
+these are null, i suspect all these to be null if any one of the value
+is null.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{c+c1}{\PYZsh{}All the imports for the notebook can be found here }
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{os}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df\PYZus{}vacant} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vacant\PYZus{}Buildings.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Reading the data into the dataframe df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}        \PY{c+c1}{\PYZsh{}checking the first 5 rows in the dataset}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}        ReferenceID Block  Lot   BuildingAddress  NoticeDate  \textbackslash{}
+        0  0002 019 031016  0002  019  1909 W NORTH AVE  03/10/2016   
+        1  0007 057 031116  0007  057  1734 APPLETON ST  03/11/2016   
+        2  0125 012 030816  0125  012    522 N CAREY ST  03/08/2016   
+        3  0151 009 030716  0151  009   317 N GILMOR ST  03/07/2016   
+        4  0074 010 030918  0074  010    945 N MOUNT ST  03/09/2018   
+        
+                  Neighborhood PoliceDistrict  CouncilDistrict  \textbackslash{}
+        0           EASTERWOOD        WESTERN                7   
+        1           EASTERWOOD        WESTERN                7   
+        2          HARLEM PARK        WESTERN                9   
+        3      FRANKLIN SQUARE        WESTERN                9   
+        4  Sandtown-Winchester        Western                9   
+        
+                              Location  
+        0  (39.30952601, -76.64848892)  
+        1  (39.30856758, -76.64921157)  
+        2  (39.29482152, -76.63877572)  
+        3  (39.29261888, -76.64231678)  
+        4  (39.29975212, -76.64415784)  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{p}{)} \PY{c+c1}{\PYZsh{}Total 16.6k rows in the dataset }
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 16692
+\end{Verbatim}
+            
+    \paragraph{Column names with null values
+count}\label{column-names-with-null-values-count}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} ReferenceID        0
+        Block              0
+        Lot                0
+        BuildingAddress    1
+        NoticeDate         0
+        Neighborhood       0
+        PoliceDistrict     0
+        CouncilDistrict    0
+        Location           0
+        dtype: int64
+\end{Verbatim}
+            
+    Now let's clean the dataset such that it has no null values and no
+outliers in the given dataset. To achieve this we can follow some
+preprocessing techniques like filling with a global value, predicting
+the value etc.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}        CouncilDistrict
+        count     16692.000000
+        mean          9.364186
+        std           2.775971
+        min           1.000000
+        25\%           7.000000
+        50\%           9.000000
+        75\%          12.000000
+        max          14.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuildingAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}           ReferenceID Block  Lot BuildingAddress  NoticeDate Neighborhood  \textbackslash{}
+        5193  0626 026 080217  0626  026             NaN  08/02/2017    Poppleton   
+        
+             PoliceDistrict  CouncilDistrict                     Location  
+        5193        Western               11  (39.28929887, -76.62864465)  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df\PYZus{}vacant} \PY{o}{=} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuildingAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    There's is only one null value in the dataset so no harm in removing it
+from the dataset. The row is removed and the dataset is updated!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} ReferenceID        0
+        Block              0
+        Lot                0
+        BuildingAddress    0
+        NoticeDate         0
+        Neighborhood       0
+        PoliceDistrict     0
+        CouncilDistrict    0
+        Location           0
+        dtype: int64
+\end{Verbatim}
+            
+    Now lets check for unique values in each column so that we can find
+outliers if there are any in dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CouncilDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} array([ 7,  9, 11, 10, 12, 13,  8,  6,  5,  4, 14,  2,  1,  3],
+               dtype=int64)
+\end{Verbatim}
+            
+    Its considering the coloumn as type sensitive,convert into a single case
+for no confusion and to get clearer results
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}   
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} array(['WESTERN', 'Western', 'SOUTHERN', 'Southwestern', 'CENTRAL',
+                'Southern', 'EASTERN', 'SOUTHEASTERN', 'SOUTHWESTERN', 'Eastern',
+                'Southeastern', 'Northwestern', 'NORTHWESTERN', 'NORTHERN',
+                'Notheastern', 'Central', 'Northern', 'NORTHEASTERN'], dtype=object)
+\end{Verbatim}
+            
+    Here we see typo, which resulted in duplicate values. This is handled
+further down in notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} array(['EASTERWOOD', 'HARLEM PARK', 'FRANKLIN SQUARE',
+                'Sandtown-Winchester', 'CARROLLTON RIDGE', 'Boyd-Booth',
+                'DOWNTOWN', 'WASHINGTON VILLAGE/PIGTOWN', 'Union Square',
+                'Hollins Market', 'OLIVER', 'BROADWAY EAST',
+                'New Southwest/Mount Clare', 'MCELDERRY PARK',
+                'ELLWOOD PARK/MONUMENT', 'Easterwood',
+                'COPPIN HEIGHTS/ASH-CO-EAST', 'Franklin Square',
+                'NORTHWEST COMMUNITY ACTION', 'Poppleton', 'ROSEMONT',
+                'FRANKLINTOWN ROAD', 'EDGEWOOD', 'Penrose/Fayette Street Outreach',
+                'Broadway East', 'Madison-Eastend', 'McElderry Park',
+                'Ellwood Park/Monument', 'Franklintown Road', 'Rosemont',
+                'East Baltimore Midway', 'Central Park Heights', 'Brooklyn',
+                'IRVINGTON', 'CONCERNED CITIZENS OF FOREST PARK', 'FOREST PARK',
+                'HANLON-LONGWOOD', 'PARK CIRCLE', 'WOODBERRY', 'BARCLAY',
+                'PIMLICO GOOD NEIGHBORS', 'MID-GOVANS',
+                'Coldstream Homestead Montebello', 'Oliver', 'BROOKLYN', 'Berea',
+                'CARE', 'Belair-Edison', 'SANDTOWN-WINCHESTER',
+                'MIDTOWN-EDMONDSON', 'UNION SQUARE', 'NEW SOUTHWEST/MOUNT CLARE',
+                'PENN NORTH', 'Biddle Street', 'DRUID HEIGHTS', 'Dolfield',
+                'Westfield', 'Glenham-Belhar', 'West Arlington', 'BEREA',
+                'Carrollton Ridge', 'Upton', 'Milton-Montford',
+                'Patterson Park Neighborhood', 'Canton',
+                'Coppin Heights/Ash-Co-East', 'Park Circle', 'Towanda-Grantley',
+                'Mondawmin', 'Reservoir Hill', 'Hampden', 'Druid Heights',
+                'Madison Park', 'MILTON-MONTFORD', 'MADISON-EASTEND', 'Oldtown',
+                'Irvington', 'Pen Lucy', 'MILLHILL', 'SAINT JOSEPHS',
+                'ROSEMONT HOMEOWNERS/TENANTS', 'Better Waverly', 'ALLENDALE',
+                'Arlington', 'WINCHESTER', 'Downtown', 'CENTRAL FOREST PARK',
+                'PANWAY/BRADDISH AVENUE', 'MONDAWMIN', 'Johnston Square',
+                'Gay Street', 'Middle East', 'Shipley Hill',
+                'Carroll-South Hilton', 'PARKVIEW/WOODBROOK',
+                'CENTRAL PARK HEIGHTS', 'Millhill', 'RESERVOIR HILL',
+                'EAST BALTIMORE MIDWAY', 'Bayview', 'Brewers Hill', 'Greektown',
+                'Curtis Bay', 'Four By Four', 'ARLINGTON', 'Dorchester',
+                'Garwyn Oaks', 'Fairmont', 'Darley Park', 'Cedarcroft', 'WESTPORT',
+                'SAINT PAUL', 'Baltimore Highlands', 'Parklane',
+                'Reisterstown Station', 'Glen', 'Pimlico Good Neighbors',
+                'POPPLETON', 'Saint Helena', 'BOYD-BOOTH', 'Richnor Springs',
+                'Violetville', 'Morrell Park', 'MOUNT HOLLY', 'WINDSOR HILLS',
+                'FAIRMONT', 'WALBROOK', 'UPTON', 'GREENMOUNT WEST',
+                'BRIDGEVIEW/GREENLAWN', 'JOHNSTON SQUARE', 'Parkside',
+                'MIDDLE EAST', 'Midtown-Edmondson', 'BIDDLE STREET',
+                'Washington Village/Pigtown', 'East Arlington', 'SHIPLEY HILL',
+                'CARROLL-SOUTH HILTON', 'Greenspring', 'GAY STREET', 'JONESTOWN',
+                'Harlem Park', 'WASHINGTON HILL', 'FELLS POINT',
+                'Rosemont Homeowners/Tenants', 'Saint Josephs', 'Mosher',
+                'Winchester', 'ASHBURTON', 'TOWANDA-GRANTLEY', 'LIBERTY SQUARE',
+                'OLD GOUCHER', 'MOUNT WASHINGTON', 'Edgewood', 'WINSTON-GOVANS',
+                'Remington', 'Waverly', 'Overlea', 'Penn North', 'Moravia-Walther',
+                'Waltherson', 'Westport', 'BETTER WAVERLY', 'Parkview/Woodbrook',
+                'Cherry Hill', 'Northwest Community Action', 'Highlandtown',
+                'Lakeland', 'Woodmere', 'PATTERSON PARK NEIGHBORHOOD',
+                'MOUNT WINANS', 'MORRELL PARK', 'GROVE PARK', 'WEST ARLINGTON',
+                'Pulaski Industrial Area', 'HOWARD PARK',
+                'Concerned Citizens Of Forest Park', 'Barclay',
+                'Woodbourne-McCabe', 'Forest Park', 'BALTIMORE HIGHLANDS',
+                'Hillen', 'West Hills', 'Winston-Govans', 'Riverside', 'Idlewood',
+                'PENROSE/FAYETTE STREET OUTREACH', 'Mid-Town Belvedere',
+                'Greenmount West', 'Kernewood', 'DORCHESTER', 'CALLAWAY-GARRISON',
+                'REMINGTON', 'Lauraville', 'Abell', 'WILHELM PARK', 'BEECHFIELD',
+                'Cameron Village', 'Loch Raven', 'Cedmont', 'Allendale',
+                'Evergreen Lawn', 'Charles Village', 'DARLEY PARK',
+                'Callaway-Garrison', 'Walbrook', 'Hanlon-Longwood', 'MOSHER',
+                'HAMPDEN', 'Central Forest Park', 'CURTIS BAY', 'GWYNNS FALLS',
+                'Glen Oaks', 'Lower Edmondson Village', 'Edmondson Village',
+                'WEST HILLS', 'Bridgeview/Greenlawn', 'CHARLES NORTH',
+                'EDMONDSON VILLAGE', 'CYLBURN', 'Wrenlane', 'BROENING MANOR',
+                'SHARP-LEADENHALL', 'WOODMERE', 'Hamilton Hills', 'DOLFIELD',
+                'SOUTH CLIFTON PARK', 'Sharp-Leadenhall', 'LAKELAND',
+                'LAKE WALKER', 'WOODBOURNE-MCCABE', 'Cylburn', 'CHARLES VILLAGE',
+                'Lucille Park', 'Jonestown', 'Upper Fells Point', 'HOLLINS MARKET',
+                'West Forest Park', 'Mount Holly', 'Windsor Hills',
+                "BUTCHER'S HILL", 'Yale Heights', 'Burleith-Leighton', 'WAVERLY',
+                'Ednor Gardens-Lakeside', 'Medford', 'Tremont', 'GREENSPRING',
+                'FALLSTAFF', 'GLEN', 'LEVINDALE', 'Rosemont East', 'Kresson',
+                'TEN HILLS', 'Frankford', 'Harwood', 'Arcadia',
+                'South Clifton Park', 'Fallstaff', 'PEN LUCY', 'Evergreen',
+                'Belvedere', 'Howard Park', 'LANGSTON HUGHES', 'PARKLANE',
+                'HOMELAND', 'Rognel Heights', 'MID-TOWN BELVEDERE',
+                'SOUTH BALTIMORE', 'OAKLEE', 'Seton Hill',
+                'LOWER EDMONDSON VILLAGE', 'Patterson Place', "Butcher's Hill",
+                'SETON HILL', 'Gwynns Falls', 'UPPER FELLS POINT', 'OLDTOWN',
+                'Broening Manor', 'Graceland Park', 'Wakefield', 'CANTON',
+                'GARWYN OAKS', 'REISTERSTOWN STATION', 'HIGHLANDTOWN',
+                'ROGNEL HEIGHTS', 'Washington Hill', 'University Of Maryland',
+                'Mount Washington', 'WEST FOREST PARK', 'New Northwood',
+                'Langston Hughes', 'Beechfield', 'Orangeville', 'Wilson Park',
+                'Bolton Hill', 'Guilford', 'Mid-Govans', 'Kenilworth Park',
+                'North Harford Road', 'Stonewood-Pentwood-Winston',
+                'Panway/Braddish Avenue', 'Mount Vernon', 'Woodbourne Heights',
+                'Mount Winans', 'Forest Park Golf Course', 'Roland Park',
+                'South Baltimore', 'Ashburton', 'Fells Point',
+                'Pleasant View Gardens', 'Federal Hill', 'Fairfield Area',
+                'Charles North', 'Cross Country', 'Cedonia', 'Little Italy',
+                'EVERGREEN LAWN', 'Belair-Parkside', 'Wilhelm Park', 'Grove Park',
+                'Levindale', 'Chinquapin Park', 'Woodberry', 'Westgate',
+                'Ramblewood', 'Liberty Square', 'Homeland', 'Oakenshawe',
+                'Wyman Park', 'Penn-Fallsway', 'Taylor Heights', 'Rosebank',
+                'Lake Walker', 'LUCILLE PARK', 'Mayfield', 'BURLEITH-LEIGHTON',
+                'Medfield', 'Saint Paul', 'Original Northwood', 'Franklintown',
+                'Heritage Crossing', 'HARWOOD', 'Uplands', 'Hopkins Bayview',
+                'COLDSTREAM HOMESTEAD MONTEBELLO', 'WESTFIELD', 'FOUR BY FOUR',
+                'ROLAND PARK', 'Hunting Ridge', "Ridgely's Delight", 'GLEN OAKS',
+                'LAURAVILLE', 'WALTHERSON', 'NORTH HARFORD ROAD', 'BELAIR-EDISON',
+                'UPLANDS', 'HUNTING RIDGE', 'FRANKLINTOWN', 'MADISON PARK',
+                'BOLTON HILL', 'HERITAGE CROSSING', 'MOUNT VERNON',
+                'UNIVERSITY OF MARYLAND', "RIDGELY'S DELIGHT", 'FEDERAL HILL',
+                'CARROLL - CAMDEN INDUSTRIAL AREA', 'LITTLE ITALY',
+                'PLEASANT VIEW GARDENS', 'RIVERSIDE', 'LOCUST POINT',
+                'CAMERON VILLAGE', 'GUILFORD', 'OAKENSHAWE', 'ABELL',
+                'Clifton Park', 'KERNEWOOD', 'RADNOR-WINSTON', 'EVESHAM PARK',
+                'KENILWORTH PARK', 'WILSON PARK', 'RICHNOR SPRINGS', 'WRENLANE',
+                'Perring Loch', 'KRESSON', 'ORANGEVILLE INDUSTRIAL AREA',
+                'ORANGEVILLE', 'PULASKI INDUSTRIAL AREA', 'BREWERS HILL',
+                'GREEKTOWN', 'BAYVIEW', 'CHERRY HILL'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array(['western', 'southern', 'southwestern', 'central', 'eastern',
+                'southeastern', 'northwestern', 'northern', 'notheastern',
+                'northeastern'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 505
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Block}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} array(['0002', '0007', '0125', {\ldots}, '8358', '8422', '8434F'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} pandas.core.series.Series
+\end{Verbatim}
+            
+    The vacant buildings in each police district is counted and plot for
+police district vs its count is created. From the below plot we can see
+following insights. 1. SouthEastern and Northern districts haveleast
+number of vacant buildings. 2. Western has highest number of vacant
+buildings.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vacant Builings grouped by policedistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17fd5bf0fd0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Plot when groupby is used on
+PoliceDistrict.}\label{plot-when-groupby-is-used-on-policedistrict.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CouncilDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vacant Builings grouped by Councildistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17fd5d54e48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The vacant buildings in each council district is counted and plot for
+council district vs its count is created. From the below plot we can see
+following insights. 1. Third council have least number of vacant
+buildings. 2. Nineth council has highest number of vacant buildings. 3.
+Maximum is leading other districts by large amount
+
+    Checking if most of the Western district vacant buildings fall under
+council District 9
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CouncilDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{9}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Policedistrict histogram for councildistrict 9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17fd5ffe438>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Not only Most of the western district falls under district 9, it has
+southern and southwestern incuded in it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{df\PYZus{}vacant} \PY{o}{=} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuildingAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df\PYZus{}date} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    The notice date in dataset is of string format with mm/date/year. To
+perform analysis on this column we convert to standard format which has
+three columns Month, day and year.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{date} \PY{o}{=} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NoticeDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{df\PYZus{}date}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{date}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{date}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{date}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{df\PYZus{}date}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17fd5be4f98>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Above plot is vacant buildings vs year of the notice
+date.}\label{above-plot-is-vacant-buildings-vs-year-of-the-notice-date.}
+
+The above plot shows us the number of vacant buildings with respect to
+the year in notice period. There are some homes which are vacant from
+2004. That means there are many buildings which are left vacant from a
+decade. This may show us that if a builing is vacant from many years
+probably its going to stay that way for long time.
+
+    Now lets divide the time frame in to two buckets of equal span and see
+how many vacant buildings fall under each bucket.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}date}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{df\PYZus{}date}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{2011}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}print(df\PYZus{}date.iloc[i])}
+                 \PY{n}{count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6121
+
+    \end{Verbatim}
+
+    Out of the total 16.6K vacant buildings, almost 40\% (6121) are being
+vacant from 2011.
+
+    \subsubsection{Just like Newtons laws of motion if building is vacant it
+tends to be in vacant
+state!}\label{just-like-newtons-laws-of-motion-if-building-is-vacant-it-tends-to-be-in-vacant-state}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{Counter}
+         \PY{n}{listDist} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}date}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{df\PYZus{}date}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{2004}\PY{p}{:}
+                 \PY{n}{count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{n}{listDist}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Counter}\PY{p}{(}\PY{n}{listDist}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Counter(\{'western': 87, 'central': 43, 'southwestern': 34, 'eastern': 24, 'northwestern': 9, 'southern': 9, 'notheastern': 6, 'northern': 6, 'southeastern': 1\})
+
+    \end{Verbatim}
+
+    We have previosuly seen that western district has the most number of
+vacant buildings. Looking at the vacant buildings which are vacant from
+the year 2004. There are 87 buildings which are vacant in western
+district, which raises our suspicion. Now lets check other datasets to
+check if there is any correlation with vacant buildings.
+
+    \paragraph{Lets dive into Crime
+dataset}\label{lets-dive-into-crime-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{df\PYZus{}crime} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BPD\PYZus{}Part\PYZus{}1\PYZus{}Victim\PYZus{}Based\PYZus{}Crime\PYZus{}Data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{df\PYZus{}crime}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}     CrimeDate CrimeTime CrimeCode               Location        Description  \textbackslash{}
+         0  07/07/2018  23:53:00        1F       1600 PENTWOOD RD           HOMICIDE   
+         1  07/07/2018  23:50:00        4E       ST \& DIVISION ST     COMMON ASSAULT   
+         2  07/07/2018  23:18:00        4C  2500 PERRING MANOR RD       AGG. ASSAULT   
+         3  07/07/2018  22:41:00        9S      3700 S HANOVER ST           SHOOTING   
+         4  07/07/2018  22:55:00        4E  LOMBARD ST \& LIGHT ST     COMMON ASSAULT   
+         5  07/07/2018  22:18:00        4C     1800 W FRANKLIN ST       AGG. ASSAULT   
+         6  07/07/2018  21:40:00        3B     1000 SAINT PAUL ST   ROBBERY - STREET   
+         7  07/07/2018  21:16:00        4E    2000 E BALTIMORE ST     COMMON ASSAULT   
+         8  07/07/2018  21:08:00        6D          400 E 20TH ST  LARCENY FROM AUTO   
+         9  07/07/2018  20:19:00        9S       4900 SINCLAIR LA           SHOOTING   
+         
+           Inside/Outside   Weapon   Post      District               Neighborhood  \textbackslash{}
+         0            NaN  FIREARM  413.0  NORTHEASTERN  Stonewood-Pentwood-Winsto   
+         1              O      NaN  131.0       CENTRAL              Druid Heights   
+         2              I    OTHER  423.0  NORTHEASTERN             Hamilton Hills   
+         3            NaN  FIREARM  913.0      SOUTHERN                   Brooklyn   
+         4              I      NaN  111.0       CENTRAL               Inner Harbor   
+         5              I    OTHER  722.0       WESTERN                Harlem Park   
+         6            NaN      NaN  141.0       CENTRAL         Mid-Town Belvedere   
+         7              I      NaN  212.0  SOUTHEASTERN             Butcher's Hill   
+         8              I      NaN  341.0       EASTERN                    Barclay   
+         9            NaN  FIREARM  443.0  NORTHEASTERN                  Frankford   
+         
+            Longitude  Latitude             Location 1     Premise  crimeCaseNumber  \textbackslash{}
+         0  -76.58727  39.34782  (39.34782, -76.58727)       Alley              NaN   
+         1  -76.63936  39.30903  (39.30903, -76.63936)      STREET              NaN   
+         2  -76.56094  39.37189  (39.37189, -76.56094)  ROW/TOWNHO              NaN   
+         3  -76.61033  39.23703  (39.23703, -76.61033)  Common Bus              NaN   
+         4  -76.61362  39.28775  (39.28775, -76.61362)  CONVENIENC              NaN   
+         5  -76.64652  39.29388  (39.29388, -76.64652)  ROW/TOWNHO              NaN   
+         6  -76.61436  39.30165  (39.30165, -76.61436)         NaN              NaN   
+         7  -76.58809  39.29172  (39.29172, -76.58809)  ROW/TOWNHO              NaN   
+         8  -76.61049  39.31244  (39.31244, -76.61049)   APT/CONDO              NaN   
+         9  -76.55088  39.32101  (39.32101, -76.55088)      Street              NaN   
+         
+            Total Incidents  
+         0              1.0  
+         1              1.0  
+         2              1.0  
+         3              1.0  
+         4              1.0  
+         5              1.0  
+         6              1.0  
+         7              1.0  
+         8              1.0  
+         9              1.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{df\PYZus{}crime}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} CrimeDate               0
+         CrimeTime               0
+         CrimeCode               0
+         Location             3971
+         Description           248
+         Inside/Outside      25566
+         Weapon             261423
+         Post                  295
+         District              112
+         Neighborhood         4213
+         Longitude            3969
+         Latitude             3969
+         Location 1           4755
+         Premise             21012
+         crimeCaseNumber    335571
+         Total Incidents       847
+         dtype: int64
+\end{Verbatim}
+            
+    There are many null values in the dataset. Restricting the cleaning part
+to required columns only.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}crime}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}109}]:} 335571
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{df\PYZus{}crime}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Incidents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} array([ 1., nan])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{df\PYZus{}crime} \PY{o}{=}  \PY{n}{df\PYZus{}crime}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crimeCaseNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Incidents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{df\PYZus{}crime}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}crime}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{df\PYZus{}crime}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} array(['NORTHEASTERN', 'CENTRAL', 'SOUTHERN', 'WESTERN', 'SOUTHEASTERN',
+                'EASTERN', 'NORTHWESTERN', 'SOUTHWESTERN', 'NORTHERN', 0],
+               dtype=object)
+\end{Verbatim}
+            
+    Even though Western district has highest number of vacant buildings, it
+has least crime rate. This goes completely opposite to our intuition.
+Reason for this has something to do be western district has more number
+of buildings automatically leading to more number of vacant buildings.
+To find the truth we must find percentage of vacant buildings in
+District rather than number of vacant buildings. Since vacant buildings
+dataset does not contain any information about non vacant buildings, we
+will use propery tax dataset to these details which contains buildings
+information. We consider these buildings as non-vacant and calculate
+percentage of vacant buildings.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{df\PYZus{}crime}\PY{p}{[}\PY{n}{df\PYZus{}crime}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crimecount groupedby Policedistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17fd56b6978>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The Crime incidents in each police district is counted and plot for
+police district vs its count is created. From the above plot we can see
+following insights. 1. Western and Easter districts havel east number of
+crime incidents. 2. Northeastern has highest number of crime incidents.
+
+    \paragraph{Now let's check an Property taxes
+dataset}\label{now-lets-check-an-property-taxes-dataset}
+
+    The reason why we wanted to use property dataset for the following 1) we
+can find non vacant buildings 2) we can find number of buildings in each
+police district 3) Can a build a model which will learn if a building is
+vacant or not This is done by considering the buildings which are
+present in property tax dataset and not presnt in vacant building
+dataset as Non vacant buildings.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{df\PYZus{}property} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Real\PYZus{}Property\PYZus{}Taxes.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}   PropertyID  Block  Lot  Ward  Sect   PropertyAddress            LotSize  \textbackslash{}
+         0    0001002   0001  002    15   370  2043 W NORTH AVE  14X83-10            
+         1    5918064   5918  064    26   380   3429 SHANNON DR  18X91-9             
+         2    0001004   0001  004    15   370  2039 W NORTH AVE  14X83-10            
+         3    0001005   0001  005    15   370  2037 W NORTH AVE  14X83-10            
+         4    0001006   0001  006    15   370  2035 W NORTH AVE  14X83-10            
+         5   4179P033  4179P  033    26   340  3811 LYNDALE AVE  14X100              
+         6    0001009   0001  009    15   370  2029 W NORTH AVE  14X83-10            
+         7    0001010   0001  010    15   370  2027 W NORTH AVE  14X83-10            
+         8    0001011   0001  011    15   370  2025 W NORTH AVE  14X83-10            
+         9    0001012   0001  012    15   370  2023 W NORTH AVE  14X83-10            
+         
+            CityTax  StateTax                    ResCode  AmountDue    AsOfDate  \textbackslash{}
+         0  1112.76     55.44  NOT A PRINCIPAL RESIDENCE        NaN  06/04/2018   
+         1  2801.01    139.55  PRINCIPAL RESIDENCE          1356.50  09/29/2018   
+         2   472.08     23.52  NOT A PRINCIPAL RESIDENCE        NaN  06/04/2018   
+         3   472.08     23.52  NOT A PRINCIPAL RESIDENCE        NaN  06/04/2018   
+         4   247.28     12.32  NOT A PRINCIPAL RESIDENCE        NaN  06/04/2018   
+         5  2032.19    101.25  NOT A PRINCIPAL RESIDENCE    2123.28  07/01/2018   
+         6   472.08     23.52  NOT A PRINCIPAL RESIDENCE        NaN  06/04/2018   
+         7   472.08     23.52  NOT A PRINCIPAL RESIDENCE        NaN  06/04/2018   
+         8   472.08     23.52  NOT A PRINCIPAL RESIDENCE        NaN  06/04/2018   
+         9   472.08     23.52  NOT A PRINCIPAL RESIDENCE        NaN  06/04/2018   
+         
+             Neighborhood PoliceDistrict  CouncilDistrict                     Location  
+         0     Easterwood        Western              7.0  (39.30941619, -76.65109034)  
+         1  Belair-Edison    Notheastern             13.0   (39.3229146, -76.56235554)  
+         2     Easterwood        Western              7.0  (39.30941951, -76.65099026)  
+         3     Easterwood        Western              7.0  (39.30942111, -76.65094166)  
+         4     Easterwood        Western              7.0  (39.30942277, -76.65089166)  
+         5  Belair-Edison    Notheastern             13.0  (39.31680208, -76.56505749)  
+         6     Easterwood        Western              7.0  (39.30942756, -76.65074605)  
+         7     Easterwood        Western              7.0  (39.30942925, -76.65069531)  
+         8     Easterwood        Western              7.0  (39.30943089, -76.65064581)  
+         9     Easterwood        Western              7.0  (39.30943253, -76.65059631)  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} PropertyID             0
+         Block                  0
+         Lot                    0
+         Ward                   0
+         Sect                   0
+         PropertyAddress        5
+         LotSize                0
+         CityTax            18976
+         StateTax           18778
+         ResCode                0
+         AmountDue          98686
+         AsOfDate               0
+         Neighborhood       16122
+         PoliceDistrict     16122
+         CouncilDistrict    16094
+         Location           16082
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} PropertyID          object
+         Block               object
+         Lot                 object
+         Ward                 int64
+         Sect                 int64
+         PropertyAddress     object
+         LotSize             object
+         CityTax            float64
+         StateTax           float64
+         ResCode             object
+         AmountDue          float64
+         AsOfDate            object
+         Neighborhood        object
+         PoliceDistrict      object
+         CouncilDistrict    float64
+         Location            object
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}                 Ward           Sect       CityTax       StateTax  \textbackslash{}
+         count  238509.000000  238509.000000  2.195330e+05  219731.000000   
+         mean       18.661505     145.082534  4.056272e+03     205.074626   
+         std         8.197253     133.920428  3.532905e+04    1817.644405   
+         min         1.000000       0.000000  2.250000e+00       0.110000   
+         25\%        12.000000      50.000000  8.092800e+02      40.320000   
+         50\%        20.000000     110.000000  2.367140e+03     118.050000   
+         75\%        27.000000     200.000000  3.635020e+03     181.100000   
+         max        50.000000     690.000000  6.276443e+06  312705.340000   
+         
+                   AmountDue  CouncilDistrict  
+         count  1.398230e+05    222415.000000  
+         mean   3.336122e+03         7.594290  
+         std    2.882668e+04         4.043136  
+         min    1.000000e-02         1.000000  
+         25\%    6.894200e+02         4.000000  
+         50\%    1.539640e+03         8.000000  
+         75\%    2.846385e+03        11.000000  
+         max    3.983104e+06        14.000000  
+\end{Verbatim}
+            
+    Since only thing that is important for us is PropertyAddress, check for
+null values in that column and try to join with address in vacant
+buildings dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{df\PYZus{}property}\PY{p}{[}\PY{n}{df\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PropertyAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{df\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{df\PYZus{}property} \PY{o}{=} \PY{n}{df\PYZus{}property}\PY{p}{[}\PY{n}{df\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PropertyAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}property}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+238504
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{df\PYZus{}join} \PY{o}{=} \PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{p}{,} \PY{n}{lsuffix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rsuffix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vacant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}property}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} 238504
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} 16691
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}join}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 16691
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} [16121, 8938, 19539, 30503, 23621, 42261, 27163, 25251, 25706, 19401]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} PoliceDistrict
+         0               16121
+         Central          8938
+         Eastern         19539
+         Northern        30503
+         Northwestern    23621
+         Notheastern     42261
+         Southeastern    27163
+         Southern        25251
+         Southwestern    25706
+         Western         19401
+         Name: Ward, dtype: int64
+\end{Verbatim}
+            
+    Again results are surprising. Number of buildings in Western district is
+low side(least but one). This means not only there few buildings in
+western district of baltimore, but most of them are vacant. Previously,
+we assumed that western district has many buildings is a wrong
+assumption. So that means there is a less crime rate in vacant
+neighboorhood.
+
+    \paragraph{If buidlings are vacant - No crimes!
+Voila}\label{if-buidlings-are-vacant---no-crimes-voila}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} PoliceDistrict
+         central          848
+         eastern         3659
+         northeastern       9
+         northern         718
+         northwestern    1613
+         notheastern      945
+         southeastern     656
+         southern        1665
+         southwestern    2263
+         western         4315
+         Name: Lot, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{policeDistrict\PYZus{}property} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{policeDistrict\PYZus{}vacant} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{policeDistrict\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{northeastern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{954}
+\end{Verbatim}
+
+
+    This loop is used to calculate relative vacancies in each police
+district.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{relative\PYZus{}vacancy} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n}{policeDistrict\PYZus{}property}\PY{p}{:}
+             \PY{k}{if} \PY{n}{key} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{relative\PYZus{}vacancy}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{policeDistrict\PYZus{}vacant}\PY{p}{[}\PY{n}{key}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{]} \PY{o}{/} \PY{n}{policeDistrict\PYZus{}property}\PY{p}{[}\PY{n}{key}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{relative\PYZus{}vacancy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Central': 9.487581114343254, 'Eastern': 18.72664926557142, 'Northern': 2.353866832770547, 'Northwestern': 6.828669404343593, 'Notheastern': 2.2361042095549086, 'Southeastern': 2.4150498840334276, 'Southern': 6.593798265415231, 'Southwestern': 8.803392204154672, 'Western': 22.24112159167053\}
+
+    \end{Verbatim}
+
+    Western leads by large margin followed by Eastern just like in first bar
+graph. At this point big picture is starting to get clear. Western
+district has least number of crimes because there are not many non
+vacant buildings and more vacant buildings which means less population
+and less crimes.
+
+    Let's try to find if there is any relation between 311 requests and
+vacant buildings.
+
+    \paragraph{Customer Service Requests}\label{customer-service-requests}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{df\PYZus{}request} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{311\PYZus{}Customer\PYZus{}Service\PYZus{}Requests.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}IPython\textbackslash{}core\textbackslash{}interactiveshell.py:2785: DtypeWarning: Columns (0,10,11,12,14,18) have mixed types. Specify dtype option on import or set low\_memory=False.
+  interactivity=interactivity, compiler=compiler, result=result)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{df\PYZus{}request}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:}    SRRecordID ServiceRequestNum                 SRType MethodReceived  \textbackslash{}
+         0  1065701056       14-00000008  TRS-Parking Complaint            API   
+         1  1065701081       14-00000009  TRS-Parking Complaint            API   
+         
+                       CreatedDate SRStatus              StatusDate  \textbackslash{}
+         0  01/01/2014 12:28:25 AM   Closed  01/01/2014 01:24:55 AM   
+         1  01/01/2014 12:28:31 AM   Closed  01/01/2014 01:25:33 AM   
+         
+                           DueDate               CloseDate          Agency  \textbackslash{}
+         0  01/02/2014 12:28:25 AM  01/01/2014 01:24:55 AM  Transportation   
+         1  01/02/2014 12:28:31 AM  01/01/2014 01:25:33 AM  Transportation   
+         
+                            {\ldots}                    \textbackslash{}
+         0                  {\ldots}                     
+         1                  {\ldots}                     
+         
+                                                      Outcome  \textbackslash{}
+         0  After parking control hours - contact the police.   
+         1  After parking control hours - contact the police.   
+         
+                                             Address ZipCode  Neighborhood  \textbackslash{}
+         0  16 W CROSS ST, BALTIMORE CITY, MD, 21230   21230  Federal Hill   
+         1  11 W CROSS ST, BALTIMORE CITY, MD, 21230   21230  Federal Hill   
+         
+           CouncilDistrict PoliceDistrict  PolicePost   Latitude  Longitude  \textbackslash{}
+         0            11.0       SOUTHERN         942  39.276713 -76.615362   
+         1            11.0       SOUTHERN         942  39.276759 -76.614955   
+         
+                                      GeoLocation  
+         0  (39.2767132435659, -76.6153615433316)  
+         1  (39.2767585857716, -76.6149550612581)  
+         
+         [2 rows x 22 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{df\PYZus{}request}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PoliceDistrict}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} array(['SOUTHERN', 'NORTHERN', 'EASTERN', 'NORTHWESTERN', 'SOUTHEASTERN',
+                nan, 'CENTRAL', 'NORTHEASTERN', 'WESTERN', 'SOUTHWESTERN', 'EAST',
+                'WEST', 'Northeastern', 'Southeastern', 'Central', 'Northern',
+                'Southern', 'Northwestern', 'Southwestern', 'Western', 'Eastern'],
+               dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{df\PYZus{}request\PYZus{}null} \PY{o}{=} \PY{n}{df\PYZus{}request}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    In the dataset even if we drop all null valued rows, we still are left
+with 2.5 million rows.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}request}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}request\PYZus{}null}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} 747339
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{df\PYZus{}request}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} SRRecordID                0
+         ServiceRequestNum         0
+         SRType                   11
+         MethodReceived            0
+         CreatedDate               0
+         SRStatus                  0
+         StatusDate                0
+         DueDate               86979
+         CloseDate             78120
+         Agency                    1
+         LastActivity         466795
+         LastActivityDate     473202
+         Outcome              466795
+         Address               84447
+         ZipCode              171552
+         Neighborhood         248836
+         CouncilDistrict      277245
+         PoliceDistrict       248648
+         PolicePost           282081
+         Latitude             182386
+         Longitude            182386
+         GeoLocation          182386
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{df\PYZus{}request\PYZus{}null}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} SRRecordID           0
+         ServiceRequestNum    0
+         SRType               0
+         MethodReceived       0
+         CreatedDate          0
+         SRStatus             0
+         StatusDate           0
+         DueDate              0
+         CloseDate            0
+         Agency               0
+         LastActivity         0
+         LastActivityDate     0
+         Outcome              0
+         Address              0
+         ZipCode              0
+         Neighborhood         0
+         CouncilDistrict      0
+         PoliceDistrict       0
+         PolicePost           0
+         Latitude             0
+         Longitude            0
+         GeoLocation          0
+         dtype: int64
+\end{Verbatim}
+            
+    Dataset cleaned and we can use this for analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{df\PYZus{}request} \PY{o}{=} \PY{n}{df\PYZus{}request\PYZus{}null}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}request}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}request\PYZus{}null}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{df\PYZus{}request}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SRType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{servicerequests grouped by policedistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x17ff23f5be0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The service requests in each police district is counted and plot for
+police district vs its count is created. From the above plot we can see
+following insights. 1. Central and Western districts havel least number
+of service requests. 2. Northeastern has highest number of service
+requests.
+
+The previously seen crime incidents also follow the same pattern.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{service\PYZus{}request\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}request}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SRType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{service\PYZus{}request\PYZus{}list\PYZus{}council} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}request}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CouncilDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SRType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{vacant\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{vacant\PYZus{}list\PYZus{}council} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CouncilDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{crime\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}crime}\PY{p}{[}\PY{n}{df\PYZus{}crime}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} crime\PYZus{}list\PYZus{}council = list(df\PYZus{}crime[df\PYZus{}crime[\PYZsq{}District\PYZsq{}] != 0].groupby([\PYZsq{}District\PYZsq{}]).count()[\PYZsq{}Location\PYZsq{}])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{relative\PYZus{}vacancy\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{relative\PYZus{}vacancy}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{relative\PYZus{}vacancy\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[9.487581114343254, 18.72664926557142, 2.353866832770547, 6.828669404343593, 2.2361042095549086, 2.4150498840334276, 6.593798265415231, 8.803392204154672, 22.24112159167053]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{service\PYZus{}request\PYZus{}list}\PY{p}{,} \PY{n}{vacant\PYZus{}list}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relationship between service request and vacant list}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-71-bdaa22a15c97> in <module>()
+    ----> 1 plt.scatter(service\_request\_list, vacant\_list)
+          2 
+          3 plt.title('Relationship Between Temperature and Iced Coffee Sales')
+          4 
+          5 plt.show()
+    
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}pyplot.py in scatter(x, y, s, c, marker, cmap, norm, vmin, vmax, alpha, linewidths, verts, edgecolors, hold, data, **kwargs)
+       3468                          vmin=vmin, vmax=vmax, alpha=alpha,
+       3469                          linewidths=linewidths, verts=verts,
+    -> 3470                          edgecolors=edgecolors, data=data, **kwargs)
+       3471     finally:
+       3472         ax.\_hold = washold
+    
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}\_\_init\_\_.py in inner(ax, *args, **kwargs)
+       1853                         "the Matplotlib list!)" \% (label\_namer, func.\_\_name\_\_),
+       1854                         RuntimeWarning, stacklevel=2)
+    -> 1855             return func(ax, *args, **kwargs)
+       1856 
+       1857         inner.\_\_doc\_\_ = \_add\_data\_doc(inner.\_\_doc\_\_,
+    
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}axes\textbackslash{}\_axes.py in scatter(self, x, y, s, c, marker, cmap, norm, vmin, vmax, alpha, linewidths, verts, edgecolors, **kwargs)
+       4241         y = np.ma.ravel(y)
+       4242         if x.size != y.size:
+    -> 4243             raise ValueError("x and y must be the same size")
+       4244 
+       4245         if s is None:
+    
+
+        ValueError: x and y must be the same size
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    After digging into this error , we found that one of the column had typo
+which resulted in duplicate column. Due to that vacant buildings has one
+extra value. The following code will fix this problem.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{service\PYZus{}request\PYZus{}list}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{vacant\PYZus{}list}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+9 10
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{vacant\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[848, 3659, 9, 718, 1613, 945, 656, 1665, 2263, 4315]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{vacant\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{vacant\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{n}{vacant\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{vacant\PYZus{}list}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} 945
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{k}{def} \PY{n+nf}{sortMethod}\PY{p}{(}\PY{n}{l1}\PY{p}{,} \PY{n}{l2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{return\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{l1}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{return\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{l1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{l2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+             \PY{n}{return\PYZus{}list} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{return\PYZus{}list}\PY{p}{)}
+             \PY{n}{listy} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{return\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{listy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{return\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{listy}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{return\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{listy}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{}Now plotting to see if there is any relationship between vacancy and service requests}
+         
+         \PY{n}{plot\PYZus{}list} \PY{o}{=} \PY{n}{sortMethod}\PY{p}{(}\PY{n}{vacant\PYZus{}list}\PY{p}{,} \PY{n}{service\PYZus{}request\PYZus{}list}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{plot\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{plot\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.scatter(plot\PYZus{}list[0], plot\PYZus{}list[1])}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relationship Between vacant builings and service requests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_116_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Even though there are few outliers for lower values of vacant builings,
+the graph in overall is decreasing. This means that with increase in
+vacant buildings there are less service requests.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{}Plot to see relation between vacancy and crime count}
+          \PY{n}{plot\PYZus{}list} \PY{o}{=} \PY{n}{sortMethod}\PY{p}{(}\PY{n}{vacant\PYZus{}list}\PY{p}{,} \PY{n}{crime\PYZus{}list}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{plot\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{plot\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} plt.scatter(plot\PYZus{}list[0], plot\PYZus{}list[1])}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relationship Between vacant builings and crime count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_118_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From the above plot we can infer these things 1) Increase in vacancy
+buildings cause less crime rate in that neighborhood
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{}Plot to check if relation holds for relative vacancy and crime count}
+         \PY{n}{plot\PYZus{}list} \PY{o}{=} \PY{n}{sortMethod}\PY{p}{(}\PY{n}{relative\PYZus{}vacancy\PYZus{}list}\PY{p}{,} \PY{n}{crime\PYZus{}list}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{plot\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{plot\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.scatter(plot\PYZus{}list[0], plot\PYZus{}list[1])}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relationship Between relative vacant builings and crime count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_120_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{}Plot to check if relation holds for relative vacancy and service requests}
+         \PY{n}{plot\PYZus{}list} \PY{o}{=} \PY{n}{sortMethod}\PY{p}{(}\PY{n}{relative\PYZus{}vacancy\PYZus{}list}\PY{p}{,} \PY{n}{service\PYZus{}request\PYZus{}list}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{plot\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{plot\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.scatter(plot\PYZus{}list[0], plot\PYZus{}list[1])}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relationship Between realative vacant builings and service requests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_121_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The above plots will strengthen our assumptions because the relative
+buildings list also follows the same pattern as the vacant buildings
+list.
+
+    \subsection{Building Knn and RandomForestClassifier
+Models}\label{building-knn-and-randomforestclassifier-models}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{df\PYZus{}vacant} \PY{o}{=} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Block}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CouncilDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    The vacant buildings are marked with a status of 0 and non vacant
+buildings are marked with a status of 1 which are used as labels for the
+model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{df\PYZus{}property} \PY{o}{=} \PY{n}{df\PYZus{}property}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PropertyAddress}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BuildingAddress}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{p}{,} \PY{n}{df\PYZus{}property}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuildingAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Merging the vacant building and property taxes dataset by using Building
+address as the key for join operation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} ReferenceID        222212
+         BuildingAddress         0
+         NoticeDate         222212
+         Status             222212
+         PropertyID            379
+         Block                 379
+         Lot                   379
+         Ward                  379
+         Sect                  379
+         LotSize               379
+         CityTax             19352
+         StateTax            19154
+         ResCode               379
+         AmountDue           99070
+         AsOfDate              379
+         Neighborhood        16500
+         PoliceDistrict        379
+         CouncilDistrict     16472
+         Location            16460
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{df\PYZus{}res}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}res}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:}        ReferenceID   BuildingAddress  NoticeDate  Status PropertyID Block  \textbackslash{}
+         0  0002 019 031016  1909 W NORTH AVE  03/10/2016     0.0    0002019  0002   
+         1  0007 057 031116  1734 APPLETON ST  03/11/2016     0.0    0007057  0007   
+         2  0125 012 030816    522 N CAREY ST  03/08/2016     0.0    0125012  0125   
+         3  0151 009 030716   317 N GILMOR ST  03/07/2016     0.0    0151009  0151   
+         4  0151 009 100413   317 N GILMOR ST  10/04/2013     0.0    0151009  0151   
+         
+            Lot  Ward   Sect            LotSize  CityTax  StateTax  \textbackslash{}
+         0  019  15.0  160.0  14X85               472.08     23.52   
+         1  057  15.0  160.0  13-7X86              97.41      4.85   
+         2  012  19.0   10.0  17X104               67.44      3.36   
+         3  009  19.0   40.0  16X100               97.41      4.85   
+         4  009  19.0   40.0  16X100               97.41      4.85   
+         
+                              ResCode  AmountDue    AsOfDate     Neighborhood  \textbackslash{}
+         0  NOT A PRINCIPAL RESIDENCE     524.64  11/30/2018       Easterwood   
+         1  NOT A PRINCIPAL RESIDENCE     108.26  11/30/2018       Easterwood   
+         2  NOT A PRINCIPAL RESIDENCE      74.94  11/30/2018      Harlem Park   
+         3  NOT A PRINCIPAL RESIDENCE     108.26  11/30/2018  Franklin Square   
+         4  NOT A PRINCIPAL RESIDENCE     108.26  11/30/2018  Franklin Square   
+         
+           PoliceDistrict  CouncilDistrict                     Location  
+         0        Western              7.0  (39.30952602, -76.64848892)  
+         1        Western              7.0  (39.30856758, -76.64921158)  
+         2        Western              9.0  (39.29482153, -76.63877572)  
+         3        Western              9.0  (39.29261889, -76.64231679)  
+         4        Western              9.0  (39.29261889, -76.64231679)  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReferenceID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuildingAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NoticeDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LotSize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}res}\PY{p}{,}\PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df\PYZus{}res}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ResCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{prefix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ResCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AsOfDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ResCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}res}\PY{p}{,}\PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df\PYZus{}res}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{prefix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PropertyID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Block}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}res} \PY{o}{=} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Dropping unnecessary attritbutes like PropertyId, Block, Lot etc from
+the datasets.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{}Data Segregation into training and testing}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{TrainData}\PY{p}{,} \PY{n}{TestData}\PY{p}{,} \PY{n}{TrainLabel}\PY{p}{,} \PY{n}{TestLabel} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{df\PYZus{}res}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{corr} \PY{o}{=} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{colormap} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{diverging\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{colormap}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.2f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{corr}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{corr}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{;}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{corr}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{corr}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_136_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The above heat map shows corelation between two columns. The only
+attributes with good corelation are - City tax - State tax - Amount Due
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{k+kn}{from}  \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+         \PY{n}{RFC} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{RFmodel} \PY{o}{=} \PY{n}{RFC}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{TrainData}\PY{p}{,}\PY{n}{TrainLabel}\PY{p}{)}
+         \PY{n}{AccuracyTrain}\PY{o}{=}\PY{n}{RFmodel}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{TrainData}\PY{p}{,}\PY{n}{TrainLabel}\PY{p}{)}
+         \PY{n}{AccuracyTest}\PY{o}{=}\PY{n}{RFmodel}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{TestData}\PY{p}{,}\PY{n}{TestLabel}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for Vacant train Data :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{AccuracyTrain}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy for vacant test data :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{AccuracyTest}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{f} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{RFmodel}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy for Vacant train Data : 97.72538351091967
+Accuracy for vacant test data : 95.28487229862476
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+        \PY{n}{KnnModel} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}
+        \PY{n}{KnnModel}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{TrainData}\PY{p}{,} \PY{n}{TrainLabel}\PY{p}{)}
+        \PY{n}{KnnTrainAccuracy} \PY{o}{=} \PY{n}{KnnModel}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{TrainData}\PY{p}{,} \PY{n}{TrainLabel}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy of HR Training Data for KNN Algorithm is: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{KnnTrainAccuracy}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{KnnTestAccuracy} \PY{o}{=} \PY{n}{KnnModel}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{TestData}\PY{p}{,} \PY{n}{TestLabel}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy of HR Testing Data for KNN Algorithm is: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{KnnTestAccuracy}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  The dataset when trained with Random forest classifer has a accuracy
+  of 97\% on the validation data and 95\% on the test data
+\item
+  When trained with Knn the acccuracies are about 95\% for both the
+  cases
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{importanceList} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n}{f}\PY{p}{:}
+             \PY{n}{importanceList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{key}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}96}]:} Index(['Ward', 'Sect', 'CityTax', 'StateTax', 'AmountDue', 'CouncilDistrict',
+                'ResCode\_NOT A PRINCIPAL RESIDENCE',
+                'ResCode\_PRINCIPAL RESIDENCE      ', 'PoliceDistrict\_0',
+                'PoliceDistrict\_Central', 'PoliceDistrict\_Eastern',
+                'PoliceDistrict\_Northern', 'PoliceDistrict\_Northwestern',
+                'PoliceDistrict\_Notheastern', 'PoliceDistrict\_Southeastern',
+                'PoliceDistrict\_Southern', 'PoliceDistrict\_Southwestern',
+                'PoliceDistrict\_Western'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n}{columnsList} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}res}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{columnsList}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{columnsList}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{} }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{importanceList}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ward ---> 4.322874588473496
+Sect ---> 7.7262465263923525
+CityTax ---> 24.33784019062489
+StateTax ---> 30.611299282635635
+AmountDue ---> 20.412379331688733
+CouncilDistrict ---> 3.3071283552871025
+ResCode\_NOT A PRINCIPAL RESIDENCE ---> 2.830741742828997
+ResCode\_PRINCIPAL RESIDENCE       ---> 2.5885429379510567
+PoliceDistrict\_0 ---> 2.0928479339436864e-06
+PoliceDistrict\_Central ---> 0.21666048925451747
+PoliceDistrict\_Eastern ---> 0.19729841819597554
+PoliceDistrict\_Northern ---> 0.3682500025443614
+PoliceDistrict\_Northwestern ---> 0.23161108176382147
+PoliceDistrict\_Notheastern ---> 0.19345876641263712
+PoliceDistrict\_Southeastern ---> 0.22161454101800837
+PoliceDistrict\_Southern ---> 0.44611462284803327
+PoliceDistrict\_Southwestern ---> 0.3504654958147314
+PoliceDistrict\_Western ---> 1.6374715334177157
+
+    \end{Verbatim}
+
+    Here we have checked the feature importance for each column in the
+dataset and the inferred these 1) City tax, state tax, amount due has a
+major impact in classifying the data 2) Policedistrict columns is not so
+useful in classifying 3) Principal residence did not have much impact on
+classifying the data 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{df\PYZus{}vacant} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vacant\PYZus{}Buildings.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Reading the data into the dataframe df}
+          \PY{n}{df\PYZus{}vacant} \PY{o}{=} \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuildingAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+          \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df\PYZus{}vacant}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliceDistrict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df\PYZus{}location} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReferenceID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}vacant}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{location} \PY{o}{=} \PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{Latitude} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{location}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+              \PY{n}{Longitude} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{location}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{df\PYZus{}location}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{df\PYZus{}vacant}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReferenceID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{Latitude}\PY{p}{,}\PY{n}{Longitude}\PY{p}{]}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
